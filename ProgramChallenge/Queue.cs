@@ -1,31 +1,31 @@
 ﻿using System;
 namespace ProgramChallenge
 {
-    public class Queue
+    public sealed class Queue
     {
-        private int size = 0;
-        private int frontP = 0;
-        private int rearP = -1;
-        private int maxSize;
-        private int[] MyQueue;
+        private int _size = 0;
+        private int _frontP = 0;
+        private int _rearP = -1;
+        private readonly int _maxSize;
+        private readonly int[] _myQueue;
 
         public Queue(int maxSize)
         {
-            this.maxSize = maxSize;
-            MyQueue = new int[maxSize];
+            this._maxSize = maxSize;
+            _myQueue = new int[maxSize];
         }
 
         public bool IsEmpty()
         {
-            return size == 0;
+            return _size == 0;
         }
 
         public bool IsFull()
         {
-            return size == maxSize;
+            return _size == _maxSize;
         }
 
-        public virtual void Enqueue(int newItem)
+        public void Enqueue(int newItem)
         {
             if (IsFull())
             {
@@ -33,13 +33,13 @@ namespace ProgramChallenge
             }
             else
             {
-                rearP++;
-                MyQueue[rearP] = newItem;
-                size++;
+                _rearP++;
+                _myQueue[_rearP] = newItem;
+                _size++;
             }
         }
 
-        public virtual int Dequeue()
+        public int Dequeue()
         {
             if (IsEmpty())
             {
@@ -48,9 +48,9 @@ namespace ProgramChallenge
             }
             else
             {
-                int output = MyQueue[frontP];
-                frontP++;
-                size--;
+                int output = _myQueue[_frontP];
+                _frontP++;
+                _size--;
                 return output;
             }
         }
