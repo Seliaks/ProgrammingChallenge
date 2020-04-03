@@ -3,10 +3,15 @@ using System.Threading;
 
 namespace ProgramChallenge
 {
-    class MainClass
+    static class MainClass
     {
+        static object _myDataType = new object();
+        
         public static void Main(string[] args)
         {
+            Vector test = new Vector((1 / Math.Pow(3, 0.5)), 1);
+            Console.WriteLine(test.Angle());
+            
             int choice = 0;
             do
             {
@@ -14,10 +19,14 @@ namespace ProgramChallenge
                 switch (choice)
                 {
                     case 1:
-                        Queue myDataType = new Queue(5);
+                        Queue();
                         break;
                     
                     case 2:
+                        List();
+                        break;
+                    
+                    case 3:
                         break;
                 }
             } while (choice != 9);
@@ -38,6 +47,21 @@ namespace ProgramChallenge
 9: Quit
 Enter choice: ");
             return int.Parse(Console.ReadLine());
+        }
+
+        static void Queue()
+        {
+            _myDataType = new Queue(5);
+        }
+
+        static void List()
+        {
+            _myDataType = new List();
+        }
+
+        static void Stack()
+        {
+            _myDataType = new Stack(5);
         }
     }
 }

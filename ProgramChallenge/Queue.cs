@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace ProgramChallenge
 {
     public sealed class Queue
@@ -48,7 +49,7 @@ namespace ProgramChallenge
             }
             else
             {
-                int output = _myQueue[_frontP];
+                var output = _myQueue[_frontP];
                 _frontP++;
                 _size--;
                 return output;
