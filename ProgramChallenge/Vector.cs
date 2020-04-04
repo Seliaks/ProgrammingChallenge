@@ -4,8 +4,8 @@ namespace ProgramChallenge
 {
     public class Vector
     {
-        private double _i;
-        private double _j;
+        private readonly double _i;
+        private readonly double _j;
 
         public Vector(double i, double j)
         {
@@ -44,11 +44,11 @@ namespace ProgramChallenge
                         {
                             if (_j > 0)
                             {
-                                angle = Math.Atan((double) (_j / _i));
+                                angle = Math.Atan(_i / _j);
                             }
                             else if (_j < 0)
                             {
-                                angle = Math.Atan((double) (_j / _i)) + Math.PI;
+                                angle = Math.Atan(_i / _j) + Math.PI;
                             }
                             else
                             {

@@ -4,8 +4,8 @@ namespace ProgramChallenge
 {
     public class List
     {
-        private ListItem _head;
-        private ListItem _end;
+        private Node _head;
+        private Node _end;
         private int _length = 0;
 
         public List()
@@ -14,9 +14,9 @@ namespace ProgramChallenge
             _end = _head;
         }
         
-        public List(ListItem head)
+        public List(Node head)
         {
-            _head = new ListItem(head);
+            _head = new Node(head);
             _end = _head;
             _length++;
         }
@@ -26,7 +26,7 @@ namespace ProgramChallenge
             var current = _head;
             for (var i = 0; i < position; i++)
             {
-                current = current.GetNext();
+                current = current.GetChild();
             }
 
             return current.GetData();
@@ -36,13 +36,13 @@ namespace ProgramChallenge
         {
             if (_head == null)
             {
-                _head = new ListItem(data);
+                _head = new Node(data);
                 _end = _head;
             }
             else
             {
-                var newItem = new ListItem(data, _end);
-                _end.SetNext(newItem);
+                var newItem = new Node(_end, data);
+                _end.SetChild(newItem);
                 _end = newItem;
             }
             _length++;
@@ -53,19 +53,19 @@ namespace ProgramChallenge
             var current = _head;
             for (var i = 0; i < position; i++)
             {
-                current = current.GetNext();
+                current = current.GetChild();
             }
-            var newItem = new ListItem(data, current.GetPrevious(), current);
-            current.SetPrevious(newItem);
-            current.GetPrevious().SetNext(newItem);
+            var newItem = new Node(current.GetParent(), data, current);
+            current.SetParent(newItem);
+            current.GetParent().SetChild(newItem);
             _length++;
         }
 
         public object Pop()
         {
-            ListItem last = _end;
-            _end = _end.GetPrevious();
-            _end.SetNext(null);
+            Node last = _end;
+            _end = _end.GetParent();
+            _end.SetChild(null);
             _length--;
             return last;
         }

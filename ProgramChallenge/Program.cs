@@ -9,9 +9,6 @@ namespace ProgramChallenge
         
         public static void Main(string[] args)
         {
-            Vector test = new Vector((1 / Math.Pow(3, 0.5)), 1);
-            Console.WriteLine(test.Angle());
-            
             int choice = 0;
             do
             {
