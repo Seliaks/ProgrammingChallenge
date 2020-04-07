@@ -1,0 +1,10 @@
+/home/robin/Projects/ProgramChallenge/ProgramChallenge/bin/Debug/ProgramChallenge.exe
+/home/robin/Projects/ProgramChallenge/ProgramChallenge/bin/Debug/ProgramChallenge.pdb
+/home/robin/Projects/ProgramChallenge/ProgramChallenge/obj/x86/Debug/ProgramChallenge.csprojAssemblyReference.cache
+/home/robin/Projects/ProgramChallenge/ProgramChallenge/obj/x86/Debug/ProgramChallenge.exe
+/home/robin/Projects/ProgramChallenge/ProgramChallenge/obj/x86/Debug/ProgramChallenge.pdb
+/home/robin/Documents/Year 12/Computing/C#/ProgramChallenge/ProgramChallenge/bin/Debug/ProgramChallenge.exe
+/home/robin/Documents/Year 12/Computing/C#/ProgramChallenge/ProgramChallenge/bin/Debug/ProgramChallenge.pdb
+/home/robin/Documents/Year 12/Computing/C#/ProgramChallenge/ProgramChallenge/obj/x86/Debug/ProgramChallenge.csprojAssemblyReference.cache
+/home/robin/Documents/Year 12/Computing/C#/ProgramChallenge/ProgramChallenge/obj/x86/Debug/ProgramChallenge.exe
+/home/robin/Documents/Year 12/Computing/C#/ProgramChallenge/ProgramChallenge/obj/x86/Debug/ProgramChallenge.pdb
