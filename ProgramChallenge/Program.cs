@@ -5,13 +5,12 @@ namespace ProgramChallenge
 {
     static class MainClass
     {
-        static object _myDataType = new object();
-        
         public static void Main(string[] args)
         {
             int choice = 0;
             do
             {
+                Console.Clear();
                 choice = Menu();
                 switch (choice)
                 {
@@ -25,9 +24,28 @@ namespace ProgramChallenge
                     
                     case 3:
                         break;
+                    
+                    case 7:
+                        int typeChoice = TreeTypeMenu();
+                        switch (typeChoice)
+                        {
+                            case 2:
+                                Tree<int>();
+                                break;
+                            
+                            case 3:
+                                Tree<char>();
+                                break;
+                            
+                            default:
+                                Tree<string>();
+                                break;
+                        }
+                        //Tree<string>();
+                        break;
                 }
             } while (choice != 9);
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
         }
 
@@ -46,19 +64,65 @@ Enter choice: ");
             return int.Parse(Console.ReadLine());
         }
 
-        static void Queue()
+        private static void Queue()
         {
-            _myDataType = new Queue(5);
+            Queue myQueue = new Queue(5);
         }
 
-        static void List()
+        private static void List()
         {
-            _myDataType = new List();
+            List myList = new List();
         }
 
-        static void Stack()
+        private static void Stack()
         {
-            _myDataType = new Stack(5);
+            Stack myStack = new Stack(5);
+        }
+
+        private static void Tree<T>()
+        {
+            Tree<T> myTree = new Tree<T>();
+            int choice;
+            do
+            {
+                choice = TreeMenu();
+                switch (choice)
+                {
+                    case 1:
+                        Console.Write("Value: ");
+                        myTree.AddNode((T) Convert.ChangeType(Console.ReadLine(), typeof(T)));
+                        break;
+
+                    case 2:
+                        foreach (var data in myTree.SortedTree())
+                        {
+                            Console.WriteLine(data);
+                        }
+
+                        break;
+
+                }
+            } while (choice != 3);
+
+            Console.ReadKey(true);
+        }
+
+        private static int TreeMenu()
+        {
+            Console.Write(@"1: Add a value
+2: Output all values
+3: Quit
+Choice: ");
+            return int.Parse(Console.ReadLine());
+        }
+
+        private static int TreeTypeMenu()
+        {
+            Console.Write(@"1: String
+2: Int
+3: Char
+Choice: ");
+            return int.Parse(Console.ReadLine());
         }
     }
 }
