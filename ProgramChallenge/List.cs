@@ -1,11 +1,9 @@
-using System.CodeDom;
-
 namespace ProgramChallenge
 {
     public class List
     {
-        private Node _head;
-        private Node _end;
+        private ListNode _head;
+        private ListNode _end;
         private int _length = 0;
 
         public List()
@@ -14,9 +12,9 @@ namespace ProgramChallenge
             _end = _head;
         }
         
-        public List(Node head)
+        public List(ListNode head)
         {
-            _head = new Node(head);
+            _head = new ListNode(head);
             _end = _head;
             _length++;
         }
@@ -36,12 +34,12 @@ namespace ProgramChallenge
         {
             if (_head == null)
             {
-                _head = new Node(data);
+                _head = new ListNode(data);
                 _end = _head;
             }
             else
             {
-                var newItem = new Node(_end, data);
+                var newItem = new ListNode(_end, data);
                 _end.SetChild(newItem);
                 _end = newItem;
             }
@@ -55,7 +53,7 @@ namespace ProgramChallenge
             {
                 current = current.GetChild();
             }
-            var newItem = new Node(current.GetParent(), data, current);
+            var newItem = new ListNode(current.GetParent(), data, current);
             current.SetParent(newItem);
             current.GetParent().SetChild(newItem);
             _length++;
@@ -63,7 +61,7 @@ namespace ProgramChallenge
 
         public object Pop()
         {
-            Node last = _end;
+            ListNode last = _end;
             _end = _end.GetParent();
             _end.SetChild(null);
             _length--;
