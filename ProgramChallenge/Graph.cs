@@ -38,6 +38,32 @@ namespace ProgramChallenge
             _nodes.Add(node);
         }
 
+        public void RemoveNode()
+        {
+            int nodeNum = 1;
+            foreach (var node in _nodes)
+            {
+                Console.WriteLine("{0}: {1}", nodeNum, node.GetData());
+                nodeNum++;
+            }
+            Console.Write("Choice: ");
+
+            int choice = int.Parse(Console.ReadLine());
+            GraphNode<T> removeNode = _nodes[choice - 1];
+
+            foreach (var child in removeNode.GetChildren())
+            {
+                child.RemoveParent(removeNode);
+            }
+
+            foreach (var parent in removeNode.GetParents())
+            {
+                parent.RemoveChild(removeNode);
+            }
+
+            _nodes.Remove(removeNode);
+        }
+
         public void AddConnection(GraphNode<T> start, GraphNode<T> end, int length)
         {
             start.AddChild(end, length);
@@ -78,6 +104,42 @@ namespace ProgramChallenge
             end.AddParent(start, length);
         }
 
+        public void RemoveConnection()
+        {
+            Console.Clear();
+            int nodeNum = 1;
+            foreach (var node in _nodes)
+            {
+                Console.WriteLine("{0}: {1}", nodeNum,node.GetData());
+                nodeNum++;
+            }
+
+            Console.Write("Choice: ");
+            GraphNode<T> start = _nodes[int.Parse(Console.ReadLine()) - 1];
+            
+            nodeNum = 1;
+            foreach (var node in _nodes)
+            {
+                if (node != start)
+                {
+                    Console.WriteLine("{0}: {1}", nodeNum, node.GetData());
+                }
+
+                nodeNum++;
+            }
+
+            Console.Write("Choice: ");
+            GraphNode<T> end = _nodes[int.Parse(Console.ReadLine()) - 1];
+            
+            start.RemoveChild(end);
+            end.RemoveParent(start);
+        }
+
+        public void Sort()
+        {
+            _nodes.Sort();
+        }
+
         public FloydTable Floyd()
         {
             FloydTable table = new FloydTable(_nodes);
@@ -102,13 +164,13 @@ namespace ProgramChallenge
                                         table.GetConnectionLength(via, end));
                                     
                                     table.SetShortest(shortest, start, end);
-                                    table.Display();
-                                    Thread.Sleep(250);
                                 }
                             }
                         }
                     }
-                }
+                } 
+                table.Display();
+                Thread.Sleep(2000);
             }
             return table;
         }

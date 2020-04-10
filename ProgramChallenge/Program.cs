@@ -136,9 +136,14 @@ Enter choice: ");
                             myGraph.AddNode(new GraphNode<T>((T) Convert.ChangeType(Console.ReadLine(), typeof(T))));
                         }
 
+                        myGraph.Sort();
                         break;
                     
                     case 2:
+                        myGraph.RemoveNode();
+                        break;
+                    
+                    case 3:
                         Console.Write("Number of connections to add: ");
                         int numConnections = int.Parse(Console.ReadLine());
                         for (int i = 0; i < numConnections; i++)
@@ -147,12 +152,17 @@ Enter choice: ");
                         }
 
                         break;
+                    
+                    case 4:
+                        myGraph.RemoveConnection();
+                        break;
+                    
+                    case 5:
+                        myGraph.Floyd();
+                        Console.ReadKey(true);
+                        break;
                 }
-            } while (choice != 3);
-            
-
-            myGraph.Floyd();
-            Console.ReadKey(true);
+            } while (choice != 9);
         }
 
         private static void Tree<T>()
@@ -223,8 +233,11 @@ Choice: ");
         {
             Console.Clear();
             Console.Write(@"1: Add a node
-2: Add a connection
-3: Display Floyd's table
+2: Remove a node
+3: Add a connection
+4: Remove a connection
+5: Display Floyd's table
+9: Quit
 Choice: ");
             return int.Parse(Console.ReadLine());
         }

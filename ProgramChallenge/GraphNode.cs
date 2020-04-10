@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ProgramChallenge
 {
-    public class GraphNode<T>
+    public class GraphNode<T>:IComparable<GraphNode<T>>, IComparer<T>
     {
         private List<Connection> _parents;
         private readonly T _data;
@@ -33,6 +34,40 @@ namespace ProgramChallenge
         public void AddParent(GraphNode<T> parent, int length)
         {
             _parents.Add(new Connection(parent, length));
+        }
+
+        public void RemoveParent(GraphNode<T> parent)
+        {
+            List<Connection> toRemove = new List<Connection>();
+            foreach (var connection in _parents)  
+            {
+                if (connection.GetNode() == parent)
+                {
+                    toRemove.Add(connection);
+                }
+            }
+
+            foreach (var removeConnection in toRemove)
+            {
+                _parents.Remove(removeConnection);
+            }
+        }
+
+        public void RemoveChild(GraphNode<T> child)
+        {
+            List<Connection> toRemove = new List<Connection>();
+            foreach (var connection in _children)
+            {
+                if (connection.GetNode() == child)
+                {
+                    toRemove.Add(connection);
+                }
+            }
+
+            foreach (var removeConnection in toRemove)
+            {
+                _children.Remove(removeConnection);
+            }
         }
 
         public void SetParents(List<Connection> parents)
@@ -122,6 +157,18 @@ namespace ProgramChallenge
             {
                 return _length;
             }
+        }
+
+        public int CompareTo(GraphNode<T> other)
+        {
+            if (other == null) return 1;
+            return Compare(this._data, other._data);
+        }
+
+        public int Compare(T x, T y)
+        {
+            return (string.CompareOrdinal((string) Convert.ChangeType(x, typeof(string)),
+                (string) Convert.ChangeType(y, typeof(string))));
         }
     }
 }
