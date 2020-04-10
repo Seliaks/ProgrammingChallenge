@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 
@@ -10,7 +11,7 @@ namespace ProgramChallenge
     {
         public static void Main(string[] args)
         {  
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             int choice = 0;
             do
             {
@@ -88,31 +89,70 @@ Enter choice: ");
         private static void Queue()
         {
             Queue myQueue = new Queue(5);
+            throw new NotImplementedException();
         }
 
         private static void List()
         {
             List myList = new List();
+            throw new NotImplementedException();
         }
 
         private static void Stack()
         {
             Stack myStack = new Stack(5);
+            throw new NotImplementedException();
         }
 
         private static void HashTable()
         {
             HashTable myHashTable = new HashTable();
+            throw new NotImplementedException();
         }
 
         private static void Dictionary()
         {
             Dictionary myDictionary = new Dictionary();
+            throw new NotImplementedException();
         }
 
         private static void Graph<T>()
         {
             Graph<T> myGraph = new Graph<T>();
+            Console.Clear();
+            int choice;
+            do
+            {
+                choice = GraphMenu();
+                switch (choice)
+                {
+                    case 1:
+                        Console.Write("Number of nodes to add: ");
+                        int numNodes = int.Parse(Console.ReadLine());
+                        for (int i = 0; i < numNodes; i++)
+                        {
+                            Console.Clear();
+                            Console.Write("Node: ");
+                            myGraph.AddNode(new GraphNode<T>((T) Convert.ChangeType(Console.ReadLine(), typeof(T))));
+                        }
+
+                        break;
+                    
+                    case 2:
+                        Console.Write("Number of connections to add: ");
+                        int numConnections = int.Parse(Console.ReadLine());
+                        for (int i = 0; i < numConnections; i++)
+                        {
+                            myGraph.AddConnection();
+                        }
+
+                        break;
+                }
+            } while (choice != 3);
+            
+
+            myGraph.Floyd();
+            Console.ReadKey(true);
         }
 
         private static void Tree<T>()
@@ -157,6 +197,7 @@ Enter choice: ");
         {
             Vector myVector = new Vector(1, Math.Pow(3, -0.5));
             Console.WriteLine(myVector.Angle());
+            throw new NotImplementedException();
             Console.ReadKey(true);
         }
 
@@ -174,6 +215,16 @@ Choice: ");
             Console.Write(@"1: String
 2: Int
 3: Char
+Choice: ");
+            return int.Parse(Console.ReadLine());
+        }
+
+        private static int GraphMenu()
+        {
+            Console.Clear();
+            Console.Write(@"1: Add a node
+2: Add a connection
+3: Display Floyd's table
 Choice: ");
             return int.Parse(Console.ReadLine());
         }

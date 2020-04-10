@@ -13,6 +13,7 @@ namespace ProgramChallenge
         {
             _parents = parents;
             _data = data;
+            _children = new List<Connection>();
         }
 
         public GraphNode(List<Connection> parents, T data, List<Connection> children)
@@ -25,6 +26,8 @@ namespace ProgramChallenge
         public GraphNode(T data)
         {
             _data = data;
+            _parents = new List<Connection>();
+            _children = new List<Connection>();
         }
 
         public void AddParent(GraphNode<T> parent, int length)
@@ -72,17 +75,15 @@ namespace ProgramChallenge
         public Connection GetChildConnection(GraphNode<T> child)
         {
             Connection noConnection = new Connection(child, Int32.MaxValue);
-            try
-            {
-                return _children.Find(x => x.GetNode().Equals(child));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw new NotImplementedException();
-                return noConnection;
-            }
+            Connection connection = _children.Find(x => x.GetNode().Equals(child));
+            if (connection == null) return noConnection;
+            return connection;
             
+        }
+
+        public bool HasConnection(GraphNode<T> child)
+        {
+            return GetChildConnection(child).GetLength() != Int32.MaxValue;
         }
 
         public List<Connection> GetChildConnections()
