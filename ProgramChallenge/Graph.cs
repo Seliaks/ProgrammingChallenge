@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Channels;
 using System.Threading;
 
 namespace ProgramChallenge
@@ -64,8 +63,13 @@ namespace ProgramChallenge
             _nodes.Remove(removeNode);
         }
 
-        public void AddConnection(GraphNode<T> start, GraphNode<T> end, int length)
+        private void AddConnection(GraphNode<T> start, GraphNode<T> end, int length)
         {
+            foreach (var node in _nodes)
+            {
+                if (node.GetData() == start.GetData()) start = node;
+                if (node.GetData() == end.GetData()) end = node;
+            }
             start.AddChild(end, length);
             end.AddParent(start, length);
         }
@@ -102,6 +106,40 @@ namespace ProgramChallenge
             
             start.AddChild(end, length);
             end.AddParent(start, length);
+        }
+
+        public void AddUndirectedConnection()
+        {
+            Console.Clear();
+            int nodeNum = 1;
+            foreach (var node in _nodes)
+            {
+                Console.WriteLine("{0}: {1}", nodeNum,node.GetData());
+                nodeNum++;
+            }
+
+            Console.Write("Choice: ");
+            GraphNode<T> start = _nodes[int.Parse(Console.ReadLine()) - 1];
+            
+            nodeNum = 1;
+            foreach (var node in _nodes)
+            {
+                if (node != start)
+                {
+                    Console.WriteLine("{0}: {1}", nodeNum, node.GetData());
+                }
+
+                nodeNum++;
+            }
+
+            Console.Write("Choice: ");
+            GraphNode<T> end = _nodes[int.Parse(Console.ReadLine()) - 1];
+
+            Console.Write("Length: ");
+            int length = int.Parse(Console.ReadLine());
+            
+            AddConnection(start, end, length);
+            AddConnection(end, start, length);
         }
 
         public void RemoveConnection()
@@ -173,6 +211,52 @@ namespace ProgramChallenge
                 Thread.Sleep(2000);
             }
             return table;
+        }
+
+        public Graph<T> Prim()
+        {
+            Graph<T> minimalSpanningTree = new Graph<T>(new List<GraphNode<T>> {new GraphNode<T>((T)_nodes[0].GetData())});
+            int length = 0;
+
+            List<GraphNode<T>> connectedNodes = new List<GraphNode<T>> {_nodes[0]};
+
+            while (minimalSpanningTree._nodes.Count != _nodes.Count)
+            {
+                GraphNode<T>.Connection shortestConnection = new GraphNode<T>.Connection(connectedNodes[0], Int32.MaxValue);
+                GraphNode<T> shortestConnectionNode = _nodes[0];
+                foreach (var node in connectedNodes)
+                {
+                    foreach (var connection in node.GetChildConnections())
+                    {
+                        if (connection.GetLength() < shortestConnection.GetLength())
+                        {
+                            if (connectedNodes.Contains(connection.GetNode())) continue;
+                            shortestConnectionNode = node;
+                            shortestConnection = connection;
+                        }
+                    }
+                }
+
+                length += shortestConnection.GetLength();
+                connectedNodes.Add(shortestConnection.GetNode());
+                minimalSpanningTree.AddNode(new GraphNode<T>((T)shortestConnection.GetNode().GetData()));
+                minimalSpanningTree.AddConnection(shortestConnectionNode, shortestConnection.GetNode(), shortestConnection.GetLength());
+                minimalSpanningTree.AddConnection(shortestConnection.GetNode(), shortestConnectionNode, shortestConnection.GetLength());
+            }
+
+            foreach (var node in minimalSpanningTree._nodes)
+            {
+                Console.Write("{0}: ", (string)Convert.ChangeType(node.GetData(), typeof(string)));
+                foreach (var child in node.GetChildren())
+                {
+                    Console.Write("{0}, {1}; ", (string)Convert.ChangeType(child.GetData(), typeof(string)), node.GetChildConnection(child).GetLength());
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine(length);
+
+            return minimalSpanningTree;
         }
 
         public class FloydTable

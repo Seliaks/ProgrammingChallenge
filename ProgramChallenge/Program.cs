@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Threading;
 
 namespace ProgramChallenge
@@ -146,11 +142,26 @@ Enter choice: ");
                     case 3:
                         Console.Write("Number of connections to add: ");
                         int numConnections = int.Parse(Console.ReadLine());
-                        for (int i = 0; i < numConnections; i++)
+                        Console.Write("Directed(1) or undirected(2): ");
+                        int directed = int.Parse(Console.ReadLine());
+                        switch (directed)
                         {
-                            myGraph.AddConnection();
-                        }
+                            case 1:
+                                for (int i = 0; i < numConnections; i++)
+                                {
+                                    myGraph.AddConnection();
+                                }
 
+                                break;
+                            
+                            case 2:
+                                for (int i = 0; i < numConnections; i++)
+                                {
+                                    myGraph.AddUndirectedConnection();
+                                }
+
+                                break;
+                        }
                         break;
                     
                     case 4:
@@ -159,6 +170,11 @@ Enter choice: ");
                     
                     case 5:
                         myGraph.Floyd();
+                        Console.ReadKey(true);
+                        break;
+                    
+                    case 6:
+                        myGraph.Prim();
                         Console.ReadKey(true);
                         break;
                 }
@@ -237,6 +253,7 @@ Choice: ");
 3: Add a connection
 4: Remove a connection
 5: Display Floyd's table
+6: Prim's
 9: Quit
 Choice: ");
             return int.Parse(Console.ReadLine());

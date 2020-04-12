@@ -137,6 +137,12 @@ namespace ProgramChallenge
             return children;
         }
 
+        public void ClearConnections()
+        {
+            _children = new List<Connection>();
+            _parents = new List<Connection>();
+        }
+
         public class Connection
         {
             private GraphNode<T> _node;
