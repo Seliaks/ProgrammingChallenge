@@ -259,6 +259,63 @@ namespace ProgramChallenge
             return minimalSpanningTree;
         }
 
+        public Graph<T> Kruskal() //Cannot distinguish between two unconnected MST's and a cycle - Use Dijkstra's with < Int32.MaxValue instead of line 280?
+        {
+            Graph<T> minimalSpanningTree = new Graph<T>(new List<GraphNode<T>>());
+            int length = 0;
+
+            List<GraphNode<T>> connectedNodes = new List<GraphNode<T>>();
+
+            while (minimalSpanningTree._nodes.Count != _nodes.Count)
+            {
+                Console.WriteLine(minimalSpanningTree._nodes.Count);
+                GraphNode<T>.Connection shortestConnection = new GraphNode<T>.Connection(_nodes[0], Int32.MaxValue);
+                GraphNode<T> shortestConnectionNode = _nodes[0];
+                foreach (var node in _nodes)
+                {
+                    foreach (var connection in node.GetChildConnections())
+                    {
+                        if (connection.GetLength() < shortestConnection.GetLength())
+                        {
+                            if (connectedNodes.Contains(connection.GetNode()) && connectedNodes.Contains(node)) continue;
+                            shortestConnectionNode = node;
+                            shortestConnection = connection;
+                        }
+                    }
+                }
+
+                length += shortestConnection.GetLength();
+                if (!connectedNodes.Contains(shortestConnection.GetNode()))
+                {
+                    connectedNodes.Add(shortestConnection.GetNode());
+                    minimalSpanningTree.AddNode(new GraphNode<T>((T)shortestConnection.GetNode().GetData()));
+                }
+
+                if (!connectedNodes.Contains(shortestConnectionNode))
+                {
+                    connectedNodes.Add(shortestConnectionNode);
+                    minimalSpanningTree.AddNode(new GraphNode<T>((T)shortestConnectionNode.GetData()));
+                }
+
+                minimalSpanningTree.AddConnection(shortestConnectionNode, shortestConnection.GetNode(), shortestConnection.GetLength());
+                minimalSpanningTree.AddConnection(shortestConnection.GetNode(), shortestConnectionNode, shortestConnection.GetLength());
+            }
+
+            foreach (var node in minimalSpanningTree._nodes)
+            {
+                Console.Write("{0}: ", (string)Convert.ChangeType(node.GetData(), typeof(string)));
+                foreach (var child in node.GetChildren())
+                {
+                    Console.Write("{0}, {1}; ", (string)Convert.ChangeType(child.GetData(), typeof(string)), node.GetChildConnection(child).GetLength());
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine(length);
+
+            return minimalSpanningTree;
+        }
+
         public class FloydTable
         {
             private List<GraphNode<T>> _nodes;

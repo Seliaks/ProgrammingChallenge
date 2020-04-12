@@ -174,7 +174,7 @@ Enter choice: ");
                         break;
                     
                     case 6:
-                        myGraph.Prim();
+                        myGraph.Kruskal();
                         Console.ReadKey(true);
                         break;
                 }
