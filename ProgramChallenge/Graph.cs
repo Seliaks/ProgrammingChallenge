@@ -316,6 +316,36 @@ namespace ProgramChallenge
             return minimalSpanningTree;
         }
 
+        public int Dijkstra(GraphNode<T> start, GraphNode<T> end)
+        {
+            Graph<T> dijkstraGraph = new Graph<T>(new List<GraphNode<T>>());
+            foreach (var node in _nodes)
+            {
+                dijkstraGraph.AddNode(new GraphNode<T>((T)node.GetData()));
+            }
+
+
+            return 0;
+        }
+
+        public class DijkstraBox
+        {
+            private T _vertex;
+            private int _orderOfLabelling;
+            private int _finalLabel;
+            private List<int> _workingValues;
+
+            public DijkstraBox(T vertex)
+            {
+                _vertex = vertex;
+            }
+
+            public void Finalise(int orderOfLabelling)
+            {
+                _orderOfLabelling = orderOfLabelling;
+            }
+        }
+
         public class FloydTable
         {
             private List<GraphNode<T>> _nodes;
