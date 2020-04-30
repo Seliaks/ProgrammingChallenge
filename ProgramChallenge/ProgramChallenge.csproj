@@ -35,6 +35,7 @@
     <Compile Include="Dictionary.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="GraphNode.cs" />
+    <Compile Include="HashData.cs" />
     <Compile Include="HashTable.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListNode.cs" />

@@ -28,7 +28,22 @@ namespace ProgramChallenge
                         break;
                     
                     case 4:
-                        HashTable();
+                        Console.Clear();
+                        int typeChoiceHash = TreeTypeMenu();
+                        switch (typeChoiceHash)
+                        {
+                            case 2:
+                                HashTable<int>();
+                                break;
+                            
+                            case 3:
+                                HashTable<char>();
+                                break;
+                            
+                            default:
+                                HashTable<string>();
+                                break;
+                        }
                         break;
                     
                     case 5:
@@ -100,10 +115,21 @@ Enter choice: ");
             throw new NotImplementedException();
         }
 
-        private static void HashTable()
+        private static void HashTable<T>()
         {
-            HashTable myHashTable = new HashTable();
-            throw new NotImplementedException();
+            int size = 20;
+            int skip = 3;
+            HashTable<T> myHashTable = new HashTable<T>(size,skip);
+            myHashTable.AddData((T)Convert.ChangeType(147, typeof(T)));
+            myHashTable.AddData((T)Convert.ChangeType(146, typeof(T)));
+            myHashTable.AddData((T)Convert.ChangeType(145, typeof(T)));
+            myHashTable.AddData((T)Convert.ChangeType(147, typeof(T)));
+            myHashTable.AddData((T)Convert.ChangeType(147, typeof(T)));
+            myHashTable.AddData((T)Convert.ChangeType(147, typeof(T)));
+            myHashTable.AddData((T)Convert.ChangeType(117, typeof(T)));
+            myHashTable.AddData((T)Convert.ChangeType(147, typeof(T)));
+            myHashTable.Display();
+            Console.ReadLine();
         }
 
         private static void Dictionary()
